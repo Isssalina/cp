@@ -2,14 +2,16 @@
     <div class="logindata">
       <div class="loginbox">
         <el-container>
-          <el-aside width="60%">
+          <el-aside width="55%">
             <img src='../../assets/lg.png' style='width: 90%; height:90%'>
           </el-aside>
-          <el-main>
-            <div class="logintext">
-               <h1>Hellow, welcome to us!</h1>
-            </div>
-                 
+
+     
+            <el-main>
+              <div class="logintext">
+               <h2> Hellow, welcome back to us! </h2>
+              </div>
+                
             <div class="input"> 
               <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <el-form-item label="Username" prop="username">
@@ -28,8 +30,7 @@
                 </el-form-item>
               </el-form> 
             </div>
-          </el-main>
-          
+            </el-main>
         </el-container>
       </div>
     </div>
@@ -112,12 +113,16 @@ export default {
       line-height: 100%;
       //padding-top: 150px;
     }
+    .el-container{
+      weight:100%;
+      height: 100%;
+    }
     .loginbox{
       background-color: #FFF;
       border-radius: 30px;
       box-shadow: 10px 10px 5px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .08); 
-      width: 75%;
-      height: 80%;
+      width: 100%;
+      height: 100%;
       position: absolute;
       left: 50%;
       top: 50%;
@@ -126,23 +131,24 @@ export default {
     }
     .logintext{
       height: 32%; 
-      width: 90%;
+      width: 100%;
+      text-align: center;
     }
+
     .input{
-      width: 80%;
+      width: 100%;
     }
     .el-aside {
-    color: #333;
     text-align: center;
-    line-height: 350px;
+    line-height: 250px;
     }  
     .el-main {
-        color: #333;
-        line-height: 300px;
-      }
-      body > .el-container {
-        margin-bottom: 40px;
-      }
+        weight:100%;
+        height: 100%;
+        text-align: center;
+    }
+    
+
 
 </style>
 
