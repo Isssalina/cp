@@ -2,8 +2,8 @@
     <div class="logindata">
       <div class="loginbox">
         <el-container>
-          <el-aside width="55%">
-            <img src='../../assets/lg.png' style='width: 90%; height:90%'>
+          <el-aside width="60%">
+            <img src='../../assets/lg.png' style='width: 90%; height:70%'>
           </el-aside>
 
      
@@ -139,11 +139,11 @@ export default {
       width: 100%;
     }
     .el-aside {
-    text-align: center;
+    margin:auto;
     line-height: 250px;
     }  
     .el-main {
-        weight:100%;
+        width:100%;
         height: 100%;
         text-align: center;
     }

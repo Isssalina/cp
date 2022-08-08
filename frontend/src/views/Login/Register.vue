@@ -87,7 +87,7 @@ export default {
             url: '/Register',
             data: data
         }).then(function(r){
-            if(r.data.code === 0){
+            if(r.data.code === 200){
                 that.router.push("/Login");
             }else{
                 that.$message.error(r.data.msg);

@@ -17,9 +17,9 @@
     text-align: center;
     line-height: 250px;
   }
-.el-container{
-  width:100%;
-  height:100%
-}
+  .el-container{
+    width:100%;
+    height:100%;
+  }
 
 </style>
