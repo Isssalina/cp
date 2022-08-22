@@ -31,7 +31,8 @@
     data() {
       return {
         user: {
-            username: ''
+            username: '',
+            userId:''
         },
         showname: false,
       };

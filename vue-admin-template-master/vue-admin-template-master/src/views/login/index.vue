@@ -1,3 +1,4 @@
+<!-- eslint-disable eqeqeq -->
 <template>
   <div class="login-container">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
@@ -74,8 +75,9 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: '111111'
+        username: '',
+        password: '',
+        userId: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -109,7 +111,40 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
+          this.$store.dispatch('user/login', this.loginForm).then((result) => {
+            if (result.code !== '200') {
+              // eslint-disable-next-line eqeqeq
+              if (result.code == '400') {
+                this.$message({
+                  message: result.msg,
+                  type: 'error'
+                })
+              // eslint-disable-next-line eqeqeq
+              } else if (result.code == '401') {
+                this.$message({
+                  message: result.msg,
+                  type: 'error'
+                })
+              } else {
+                this.$message({
+                  message: result.msg,
+                  type: 'error'
+                })
+              }
+              this.loading = false
+              return
+            }
+            this.$store.state.user.username = this.loginForm.username
+            window.localStorage.setItem('username', this.loginForm.username)
+            this.$store
+              .dispatch('user/getInfo', {
+                username: this.loginForm.username
+              })
+              .then((res) => {
+                this.$nextTick(() => {
+                  this.userId = this.$store.state.user.userId
+                })
+              })
             this.$router.push({ path: this.redirect || '/' })
             this.loading = false
           }).catch(() => {

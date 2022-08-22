@@ -1,18 +1,18 @@
 <template>
 
-<div>
+<div class="t-main">
     <Header></Header>
     <div class="t-type">
     <el-container>
         <el-aside width="40%"></el-aside>
         <el-main>
         <el-descriptions width="50%"title="UserInfo" direction="vertical" :column="3" border>
-            <el-descriptions-item label="Username"></el-descriptions-item>
-            <el-descriptions-item label="Firstname"></el-descriptions-item>
-            <el-descriptions-item label="Lastname"></el-descriptions-item>
-            <el-descriptions-item label="E-mail"></el-descriptions-item>
+            <el-descriptions-item label="Username">{{username}}</el-descriptions-item>
+            <el-descriptions-item label="Firstname">{{user.firstname}}</el-descriptions-item>
+            <el-descriptions-item label="Lastname">{{user.lastname}}</el-descriptions-item>
+            <el-descriptions-item label="E-mail">{{user.email}}</el-descriptions-item>
             <el-descriptions-item label="Password">
-            <el-button type="primary">Change Password</el-button>
+            <el-button type="primary" @click="changPwd">Change Password</el-button>
             </el-descriptions-item>
 
         </el-descriptions>
@@ -31,17 +31,58 @@
         data() {
         return {
           
+            username:'111',
+            user:{
+            username:'',
+            firstname: '',
+            lastname: '',
+            email: '',
+            }
+            
+          };
+         
+        },
+        created(){
+        if(this.$store.getters.getUser.username){
+            this.username = this.$store.getters.getUser.username
+            this.avatar = this.$store.getters.getUser.avatar
+            this.getUserInfo()
         }
-      }
+        
+      },
+      methods: {
+
+          getUserInfo(){
+            const _this = this
+            _this.$axios.get('/UserInfo',{
+              params:{
+                username:this.username
+              }
+            }).then(res =>{
+              console.log(res)
+              _this.user.username = res.data.data.username
+              _this.user.firstname = res.data.data.firstname
+              _this.user.lastname = res.data.data.lastname
+              _this.user.email = res.data.data.email
+            })
+          },
+          changPwd(){
+            this.$router.push('/changePwd');
+          }
+      },
+      
     }
 </script>
 
 <style>
-
-    .el-container {
+  .t-main{
+    width:100%
+  }
+  .el-container {
     text-align: center;
     width: 80%;
   }
+
   .el-aside {
     text-align: center;
     width: 35%;

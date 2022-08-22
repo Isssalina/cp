@@ -11,9 +11,11 @@
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   height: 100%;
+  width:100%;
+  margin: 0 auto
+  
 }
-  .el-main {
-
+  .el-main {    
     text-align: center;
     line-height: 250px;
   }

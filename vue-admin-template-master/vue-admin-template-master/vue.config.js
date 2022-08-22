@@ -6,13 +6,14 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = defaultSettings.title || 'vue Admin Template' // page title
+const name = defaultSettings.title || 'Stock Recommendation' // page title
 
 // If your port is set to 80,
 // use administrator privileges to execute the command line.
 // For example, Mac: sudo npm run
 // You can change the port by the following methods:
 // port = 9528 npm run dev OR npm run dev --port = 9528
+// eslint-disable-next-line no-unused-vars
 const port = process.env.port || process.env.npm_config_port || 9528 // dev port
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
@@ -30,16 +31,16 @@ module.exports = {
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
-    host:'localhost',
-    port:8081,
-    https:false,
-    hotOnly:false,
+    host: 'localhost',
+    port: 8081,
+    https: false,
+    hotOnly: false,
     proxy: {
       '/': {
-        target: "http://localhost:8081",
+        target: 'http://138.49.185.193:80',
         changeOrigin: true,
         pathRewrite: {
-          "^/": ""
+          '^/': ''
         }
       }
     }
