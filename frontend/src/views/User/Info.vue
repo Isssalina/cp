@@ -26,12 +26,12 @@
 <script>
     import Header from '../../components/Header'
     export default{
-        name: "Info.vue",
+        name: 'Info',
         components: {Header},
         data() {
         return {
           
-            username:'111',
+            username:'',
             user:{
             username:'',
             firstname: '',
@@ -60,10 +60,10 @@
               }
             }).then(res =>{
               console.log(res)
-              _this.user.username = res.data.data.username
-              _this.user.firstname = res.data.data.firstname
-              _this.user.lastname = res.data.data.lastname
-              _this.user.email = res.data.data.email
+              _this.user.username = res.username
+              _this.user.firstname = res.firstname
+              _this.user.lastname = res.lastname
+              _this.user.email = res.email
             })
           },
           changPwd(){

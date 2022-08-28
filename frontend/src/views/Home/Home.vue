@@ -40,6 +40,7 @@
                     </el-carousel>
                 </div>
                 <div class="t-tab">
+
                 <el-table
                     :data="tableData"
                     stripe
@@ -47,34 +48,39 @@
                     <el-table-column
                     prop="id"
                     label="id"
-                    width="180">
+                    width="250">
                     </el-table-column>
                     <el-table-column
                     prop="era"
                     label="era"
-                    width="180">
+                    width="130">
                     </el-table-column>
                     <el-table-column
                     prop="feature1"
                     label="feature1"
-                    width="180">
+                    width="130">
                     </el-table-column>
                     <el-table-column
                     prop="feature2"
                     label="feature2"
-                    width="180">
+                    width="130">
                     </el-table-column>
                     <el-table-column
                     prop="feature3"
                     label="feature3"
-                    width="180">
+                    width="130">
                     </el-table-column>
                     <el-table-column
                     prop="target"
                     label="target"
                     >
                     </el-table-column>
+
                 </el-table>
+                <el-pagination
+                    layout="prev, pager, next"
+                    :total="1000">
+                </el-pagination>
                 </div>
             </el-main>
         </el-container>
@@ -85,7 +91,7 @@
 <script>
     import Header from '../../components/Header'
     export default{
-        name: "Home.vue",
+        name: 'Home',
         components: {Header},
 
 
@@ -101,7 +107,26 @@
             }]
           
         }
+      },
+      methods: {
+        tablePage(){
+            const _this = this
+            _this.$axios.get("/Data").then(res =>{
+                console.log(res)
+                _this.tableData.id = res.data.id
+                _this.tableData.era = res.data.era
+                _this.tableData.feature1 = res.data.feature_Intelligence1
+                _this.tableData.feature2 = res.data.feature_Intelligence2
+                _this.tableData.feature3 = res.data.feature_Intelligence3
+                _this.tableData.target = res.data.target
+
+            })
+        }
+      },
+      created(){
+        this.tablePage()
       }
+
     }
     
 </script>

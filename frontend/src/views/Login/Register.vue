@@ -85,13 +85,16 @@ export default {
         this.$axios({
             method: 'post',
             url: '/Register',
-            data: data
-        }).then(function(r){
-            if(r.data.code === 200){
-                that.router.push("/Login");
-            }else{
-                that.$message.error(r.data.msg);
+            data: {
+              firstName:this.ruleForm.firstname,
+              lastName:this.ruleForm.lastname,
+              username:this.ruleForm.username,
+              email:this.ruleForm.email
             }
+        }).then(res =>{
+            console.log(res)
+            that.router.push("/Login");
+            that.$message.success(res.msg)
         })
     },
    

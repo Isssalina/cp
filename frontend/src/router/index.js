@@ -5,6 +5,7 @@ import Login from '../views/Login/Login.vue'
 import Register from '../views/Login/Register.vue'
 import Info from '../views/User/Info.vue'
 import changePwd from '../views/User/changePwd.vue'
+import prediction from '../views/Stocks/Prediction.vue'
 
 
 Vue.use(VueRouter)
@@ -39,6 +40,11 @@ const routes = [
     path: '/changePwd',
     name: 'ChangePwd',
     component: changePwd
+  },
+  {
+    path: '/prediction',
+    name: 'Prediction',
+    component: prediction
   },
 ]
 

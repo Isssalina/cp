@@ -8,9 +8,9 @@
     active-text-color="#FFF"> 
     <el-menu-item index="1" @click="goBack">Home</el-menu-item>
     <el-submenu index="2">
-        <template slot="title">xxx</template>
-        <el-menu-item index="2-1">1</el-menu-item>
-        <el-menu-item index="2-2">2</el-menu-item>
+        <template slot="title">Stocks</template>
+        <el-menu-item index="2-1" >Recommandation</el-menu-item>
+        <el-menu-item index="2-2" @click="predic">Prediction</el-menu-item>
         <el-menu-item index="2-3">3</el-menu-item>
     </el-submenu>
     <el-menu-item index="3">Docs</el-menu-item>
@@ -52,6 +52,9 @@
       },
       userinfo(){
         this.$router.push('/Info');
+      },
+      predic(){
+        this.$router.push('/Prediction');
       },
       logout(){
         const _this = this 
