@@ -11,7 +11,7 @@
         <template slot="title">Stocks</template>
         <el-menu-item index="2-1" >Recommandation</el-menu-item>
         <el-menu-item index="2-2" @click="predic">Prediction</el-menu-item>
-        <el-menu-item index="2-3">3</el-menu-item>
+        <el-menu-item index="2-3" v-show="showname" @click="sstock">Add optional stocks</el-menu-item>
     </el-submenu>
     <el-menu-item index="3">Docs</el-menu-item>
     <el-menu-item index="4">xxx</el-menu-item>
@@ -20,7 +20,7 @@
     <el-submenu index="7" v-show="showname">
         <template slot="title">{{user.username}}</template>
         <el-menu-item index="7-1"@click="userinfo">Your profile</el-menu-item>
-        <el-menu-item index="7-2">Your stocks</el-menu-item>
+        <el-menu-item index="7-2" @click="ustock">Your stocks</el-menu-item>
         <el-menu-item index="7-3" @click="logout">Log out</el-menu-item></el-menu-item>
     </el-submenu>
     </el-menu>
@@ -55,6 +55,12 @@
       },
       predic(){
         this.$router.push('/Prediction');
+      },
+      sstock(){
+        this.$router.push('/select');
+      },
+      ustock(){
+        this.$router.push('/ustock');
       },
       logout(){
         const _this = this 

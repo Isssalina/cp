@@ -45,6 +45,7 @@
                     :data="tableData"
                     stripe
                     style="width: 100%">
+                    
                     <el-table-column
                     prop="id"
                     label="id"
@@ -56,17 +57,17 @@
                     width="130">
                     </el-table-column>
                     <el-table-column
-                    prop="feature1"
+                    prop="feature_Intelligence1"
                     label="feature1"
                     width="130">
                     </el-table-column>
                     <el-table-column
-                    prop="feature2"
+                    prop="feature_Intelligence2"
                     label="feature2"
                     width="130">
                     </el-table-column>
                     <el-table-column
-                    prop="feature3"
+                    prop="feature_Intelligence3"
                     label="feature3"
                     width="130">
                     </el-table-column>
@@ -97,14 +98,7 @@
 
         data() {
         return {
-            tableData: [{
-            id: '',
-            era: '',
-            feature1: '',
-            feature2: '',
-            feature3: '',
-            target: ''
-            }]
+            tableData: []
           
         }
       },
@@ -113,13 +107,7 @@
             const _this = this
             _this.$axios.get("/Data").then(res =>{
                 console.log(res)
-                _this.tableData.id = res.data.id
-                _this.tableData.era = res.data.era
-                _this.tableData.feature1 = res.data.feature_Intelligence1
-                _this.tableData.feature2 = res.data.feature_Intelligence2
-                _this.tableData.feature3 = res.data.feature_Intelligence3
-                _this.tableData.target = res.data.target
-
+                _this.tableData = res.data.data
             })
         }
       },

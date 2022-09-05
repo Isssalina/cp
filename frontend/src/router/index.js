@@ -6,6 +6,8 @@ import Register from '../views/Login/Register.vue'
 import Info from '../views/User/Info.vue'
 import changePwd from '../views/User/changePwd.vue'
 import prediction from '../views/Stocks/Prediction.vue'
+import Select from '../views/Stocks/Select.vue'
+import Ustock from '../views/User/Ustock.vue';
 
 
 Vue.use(VueRouter)
@@ -45,6 +47,16 @@ const routes = [
     path: '/prediction',
     name: 'Prediction',
     component: prediction
+  },
+  {
+    path: '/select',
+    name: 'Select',
+    component: Select
+  },
+  {
+    path: '/ustock',
+    name: 'Ustock',
+    component: Ustock
   },
 ]
 

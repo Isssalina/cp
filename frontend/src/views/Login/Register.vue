@@ -93,8 +93,8 @@ export default {
             }
         }).then(res =>{
             console.log(res)
-            that.router.push("/Login");
-            that.$message.success(res.msg)
+            that.$router.push("/Login");
+            that.$message.success(res.data.data)
         })
     },
    

@@ -25,6 +25,7 @@
 
 <script>
     import Header from '../../components/Header'
+    import Qs from 'qs'
     export default{
         name: 'Info',
         components: {Header},
@@ -60,14 +61,57 @@
               }
             }).then(res =>{
               console.log(res)
-              _this.user.username = res.username
-              _this.user.firstname = res.firstname
-              _this.user.lastname = res.lastname
-              _this.user.email = res.email
+              _this.user.username = res.data.data.username
+              _this.user.firstname = res.data.data.firstName
+              _this.user.lastname = res.data.data.lastName
+              _this.user.email = res.data.data.email
             })
           },
           changPwd(){
-            this.$router.push('/changePwd');
+           
+            this.$prompt('Please input your username', 'Authentication', {
+              confirmButtonText: 'submit',
+              cancelButtonText: 'cancel',
+
+            }).then(({ value }) => {
+           
+            
+            const _this = this
+            
+            console.log(value)
+            _this.$axios({
+              method:'post',
+              url:'/sendVCode',
+              params:{
+                username: value
+              }
+            }).then(res =>{
+            console.log(res)
+            _this.$prompt('Please enter the verification code received by the email address bound to your account', 'E-mail verification', {
+            confirmButtonText: 'submit',
+            cancelButtonText: 'cancel',
+
+            }).then(({comCode})=> {
+              
+            _this.$axios.get('/confirmVCode',{
+            data:{
+            username:_this.username,
+            ccode: comCode
+            }
+            }).then(res =>{
+            console.log(res)
+            _this.$router.push('/changePwd');
+            })
+            })
+              });
+            }).catch(() => {
+              this.$message({
+                type: 'info',
+                message: 'Cancel input'
+              });       
+            });
+      
+           
           }
       },
       
