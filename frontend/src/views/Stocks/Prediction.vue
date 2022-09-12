@@ -2,17 +2,43 @@
 <div>
     <Header></Header>
 
-    <el-table
-    :data="tableData"
-    style="width: 100%">
-    <el-table-column
-      label="id"
-      prop="id">
-    </el-table-column>
-    <el-table-column
-      label="prediction"
-      prop="prediction">
-    </el-table-column>
+                  <el-table
+                  :data="tableData"
+                  style="width: 100%">
+                  <el-table-column
+                    label="id"
+                    prop="id">
+                  </el-table-column>
+                  <el-table-column
+                    prop="era"
+                    label="era"
+                    width="130">
+                    </el-table-column>
+                    <el-table-column
+                    prop="feature_Intelligence1"
+                    label="Unit net worth"
+                    width="130">
+                    </el-table-column>
+                    <el-table-column
+                    prop="feature_Intelligence2"
+                    label="Cumulative net worth"
+                    width="130">
+                    </el-table-column>
+                    <el-table-column
+                    prop="feature_Intelligence3"
+                    label="latest scale"
+                    width="130">
+                    </el-table-column>
+                    <el-table-column
+                    prop="target"
+                    label="target"
+                    >
+                    </el-table-column>
+                    <el-table-column
+                    prop="risk"
+                    label="risk"
+                    >
+                    </el-table-column>
   </el-table>
 </div>
 
@@ -39,7 +65,7 @@
         methods:{
             tableDatas(){
                 const _this = this
-                _this.$axios.get('/Prediction').then(res =>{
+                _this.$axios.get('/Data').then(res =>{
                     console.log(res)
                     _this.tableData = res.data.data
                 });

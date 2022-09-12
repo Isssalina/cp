@@ -17,17 +17,17 @@
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence1"
-                    label="feature1"
+                    label="Unit net worth"
                     width="130">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence2"
-                    label="feature2"
+                    label="Cumulative net worth"
                     width="130">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence3"
-                    label="feature3"
+                    label="latest scale"
                     width="130">
                     </el-table-column>
                     <el-table-column

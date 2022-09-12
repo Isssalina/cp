@@ -138,17 +138,15 @@
                 _this.feature_Intelligence1 = res.data.data.feature_Intelligence1
                 _this.feature_Intelligence2 = res.data.data.feature_Intelligence2
                 _this.feature_Intelligence3 = res.data.data.feature_Intelligence3
-                _this.feature_Intelligence4 = res.data.data.feature_Intelligence4
-                _this.feature_Intelligence5 = res.data.data.feature_Intelligence5
+                _this.risk = res.data.data.risk
                 this.$msgbox({
                 title: 'Stock Detail',
                 message: `id:&nbsp;&nbsp;${row.stockId}<br/>
-                feature1:&nbsp;&nbsp;${_this.feature_Intelligence1}<br/>
-                feature2:&nbsp;&nbsp;${_this.feature_Intelligence2}<br/>
-                feature3:&nbsp;&nbsp;${_this.feature_Intelligence3}<br/>
-                feature4:&nbsp;&nbsp;${_this.feature_Intelligence4}<br/>
+                Unit net worth:&nbsp;&nbsp;${_this.feature_Intelligence1}<br/>
+                Cumulative net worth:&nbsp;&nbsp;${_this.feature_Intelligence2}<br/>
+                latest scale:&nbsp;&nbsp;${_this.feature_Intelligence3}<br/>
                 target:&nbsp;&nbsp;${_this.target}<br/>
-                prediction:&nbsp;&nbsp;${_this.prediction}`,
+                risk:&nbsp;&nbsp;${_this.risk}<br/>`,
                 // h('p', null, [
                 //   h('span', null, 'prediction:'),
                 //   h('i', { style: 'color: teal' }, _this.prediction),

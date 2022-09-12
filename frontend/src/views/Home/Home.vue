@@ -40,6 +40,16 @@
                     </el-carousel>
                 </div>
                 <div class="t-tab">
+                <div class="block">
+                <span class="demonstration">Historical Data</span>&nbsp;
+                <el-date-picker
+                v-model="value1"
+                type="week"
+                format="yyyy Week WW "
+                placeholder="select week">
+                </el-date-picker>&nbsp;
+                <el-button type="primary" icon="el-icon-check" circle @click="sData"></el-button>
+            </div>
 
                 <el-table
                     :data="tableData"
@@ -58,17 +68,17 @@
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence1"
-                    label="feature1"
+                    label="Unit net worth"
                     width="130">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence2"
-                    label="feature2"
+                    label="Cumulative net worth"
                     width="130">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence3"
-                    label="feature3"
+                    label="latest scale"
                     width="130">
                     </el-table-column>
                     <el-table-column
@@ -98,12 +108,20 @@
 
         data() {
         return {
-            tableData: []
+            tableData: [],
+            value1: '',
           
         }
       },
       methods: {
         tablePage(){
+            const _this = this
+            _this.$axios.get("/Data").then(res =>{
+                console.log(res)
+                _this.tableData = res.data.data
+            })
+        },
+        sData(){
             const _this = this
             _this.$axios.get("/Data").then(res =>{
                 console.log(res)
