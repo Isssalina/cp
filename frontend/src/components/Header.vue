@@ -10,10 +10,10 @@
     <el-submenu index="2">
         <template slot="title">Stocks</template>
         <el-menu-item index="2-1" >Recommandation</el-menu-item>
-        <el-menu-item index="2-2" @click="predic">Prediction</el-menu-item>
+        <el-menu-item index="2-2" @click="predic">Risk & Prediction</el-menu-item>
         <el-menu-item index="2-3" v-show="showname" @click="sstock">Add optional stocks</el-menu-item>
     </el-submenu>
-    <el-menu-item index="3">Docs</el-menu-item>
+    <el-menu-item index="3"@click="goDocs">Docs</el-menu-item>
     <el-menu-item index="4">xxx</el-menu-item>
     <el-menu-item index="5" @click="register" v-show="!showname">Sign up</el-menu-item>
     <el-menu-item index="6" @click="Login" v-show="!showname">Log in</el-menu-item>
@@ -61,6 +61,9 @@
       },
       ustock(){
         this.$router.push('/ustock');
+      },
+      goDocs(){
+        this.$router.push('/docs');
       },
       logout(){
         const _this = this 

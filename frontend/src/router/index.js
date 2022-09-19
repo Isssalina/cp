@@ -8,6 +8,8 @@ import changePwd from '../views/User/changePwd.vue'
 import prediction from '../views/Stocks/Prediction.vue'
 import Select from '../views/Stocks/Select.vue'
 import Ustock from '../views/User/Ustock.vue';
+import Docs from '../views/Docs/Doc.vue'
+
 
 
 Vue.use(VueRouter)
@@ -57,6 +59,11 @@ const routes = [
     path: '/ustock',
     name: 'Ustock',
     component: Ustock
+  },
+  {
+    path: '/docs',
+    name: 'Docs',
+    component: Docs
   },
 ]
 

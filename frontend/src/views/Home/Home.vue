@@ -3,34 +3,6 @@
 
         <Header></Header>
         <el-container>
-            <el-aside width="25%">
-               <el-container>
-                <el-main>
-                    <div class="block">
-                    <el-timeline>
-                        <el-timeline-item timestamp="2022/8/7" placement="top">
-                        <el-card>
-                            <h8>Update</h8>
-                            <p>xxx 2022/8/7 20:86</p>
-                        </el-card>
-                        </el-timeline-item>
-                        <el-timeline-item timestamp="2022/8/8" placement="top">
-                        <el-card>
-                            <h8>Update</h8>
-                            <p>xxx 2022/8/3 20:86</p>
-                        </el-card>
-                        </el-timeline-item>
-                        <el-timeline-item timestamp="2022/8/8" placement="top">
-                        <el-card>
-                            <h8>Update</h8>
-                            <p>xxx 2022/8/2 20:86</p>
-                        </el-card>
-                        </el-timeline-item>
-                    </el-timeline>
-                    </div>
-                </el-main>
-                </el-container>
-            </el-aside>
             <el-main>
                 <div class="block">
                     <el-carousel class="t-pics" trigger="click" height="200px">
@@ -48,49 +20,66 @@
                 format="yyyy Week WW "
                 placeholder="select week">
                 </el-date-picker>&nbsp;
-                <el-button type="primary" icon="el-icon-check" circle @click="sData"></el-button>
+                <el-button type="primary" icon="el-icon-check" circle @click="sData" v-loading.fullscreen.lock="fullscreenLoading"></el-button>
             </div>
+            <div>
 
-                <el-table
-                    :data="tableData"
-                    stripe
-                    style="width: 100%">
-                    <el-table-column
-                    prop="id"
-                    label="id"
-                    width="250">
-                    </el-table-column>
-                    <el-table-column
-                    prop="era"
-                    label="era"
-                    width="130">
-                    </el-table-column>
-                    <el-table-column
-                    prop="feature_Intelligence1"
-                    label="Unit net worth"
-                    width="130">
-                    </el-table-column>
-                    <el-table-column
-                    prop="feature_Intelligence2"
-                    label="Cumulative net worth"
-                    width="130">
-                    </el-table-column>
-                    <el-table-column
-                    prop="feature_Intelligence3"
-                    label="latest scale"
-                    width="130">
-                    </el-table-column>
-                    <el-table-column
-                    prop="target"
-                    label="target"
-                    >
-                    </el-table-column>
+                 <el-table
+                v-loading="loading"
+                :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+                border
+                style="width: 100%">
+                <el-table-column
+                fixed
+                prop="id"
+                label="id"
+                width="150">
+                </el-table-column>
+                <el-table-column
+                prop="era"
+                label="era"
+                width="120">
+                </el-table-column>
+                <el-table-column
+                prop="feature_Intelligence1"
+                label="Unit net worth"
+                width="120">
+                </el-table-column>
+                <el-table-column
+                prop="feature_Intelligence2"
+                label="Cumulative net worth"
+                width="120">
+                </el-table-column>
+                <el-table-column
+                prop="feature_Intelligence3"
+                label="latest scale"
+                width="300">
+                </el-table-column>
+                <el-table-column
+                prop="target"
+                label="target"
+                width="120">
+                </el-table-column>
+                <el-table-column
+                fixed="right"
+                label="Option"
+                >
+                <template slot-scope="scope">
+                    <el-button @click="handleClick(scope.row)" type="text" size="small">Chart</el-button>
+                </template>
+                </el-table-column>
+            </el-table>
 
-                </el-table>
+                
                 <el-pagination
-                    layout="prev, pager, next"
-                    :total="1000">
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page.sync="currentPage"
+                :page-size="pageSize" 
+                layout="prev, pager, next, jumper"
+                :total="tableData.length">
                 </el-pagination>
+                </div>
                 </div>
             </el-main>
         </el-container>
@@ -100,6 +89,7 @@
 
 <script>
     import Header from '../../components/Header'
+    import { Loading } from 'element-ui';
     export default{
         name: 'Home',
         components: {Header},
@@ -109,24 +99,45 @@
         return {
             tableData: [],
             value1: '',
+            chart:'',
+            opinionData: [],
+            fullscreenLoading: false,
+            loading: true,
+            currentPage: 1,
+            pageSize: 8
           
         }
       },
       methods: {
+
         tablePage(){
             const _this = this
             _this.$axios.get("/Data").then(res =>{
                 console.log(res)
                 _this.tableData = res.data.data
+                this.loading = false
             })
         },
         sData(){
+            this.loading = true;
             const _this = this
             _this.$axios.get("/Data").then(res =>{
                 console.log(res)
                 _this.tableData = res.data.data
-            })
-        }
+                this.loading = false
+            });
+            
+        },
+        handleSizeChange(val) {
+        console.log(`Each page has ${val} pieces of data`);
+        this.currentPage = 1;
+        this.pageSize = val;
+      },
+      handleCurrentChange(val) {
+        console.log(`Current page: ${val}`);
+        this.currentPage = val;
+      }
+    
       },
       created(){
         this.tablePage()

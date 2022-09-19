@@ -12,9 +12,9 @@ import echarts from 'echarts'
 
 
 
+
 Vue.prototype.$axios = axios
 Vue.prototype.$echarts = echarts
-
 Vue.use(ElementUI,{ locale });
 
 

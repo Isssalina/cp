@@ -3,7 +3,8 @@
     <Header></Header>
 
                   <el-table
-                  :data="tableData"
+                  :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+                  v-loading="loading"
                   style="width: 100%">
                   <el-table-column
                     label="id"
@@ -39,7 +40,15 @@
                     label="risk"
                     >
                     </el-table-column>
-  </el-table>
+                </el-table>
+                <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page.sync="currentPage"
+                :page-size="pageSize" 
+                layout="prev, pager, next, jumper"
+                :total="tableData.length">
+                </el-pagination>
 </div>
 
 </template>
@@ -53,6 +62,9 @@
         data(){
             return{
             tableData: [],
+            loading: true,
+            currentPage: 1,
+            pageSize: 16
             
             
                
@@ -68,8 +80,19 @@
                 _this.$axios.get('/Data').then(res =>{
                     console.log(res)
                     _this.tableData = res.data.data
+                    this.loading = false
                 });
             },
+            handleSizeChange(val) {
+        console.log(`Each page has ${val} pieces of data`);
+        this.currentPage = 1;
+        this.pageSize = val;
+      },
+      handleCurrentChange(val) {
+        console.log(`Current page: ${val}`);
+        this.currentPage = val;
+      }
+    
 
             // predics(){
             //     const _this = this
