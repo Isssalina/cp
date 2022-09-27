@@ -26,9 +26,20 @@
 
                  <el-table
                 v-loading="loading"
-                :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+                :data="tableData"
+                @cell-click="handleClick"
                 border
                 style="width: 100%">
+                <el-table-column
+                label="Chart"
+                width="60%"
+                type="expand"
+                
+                >
+                    <template slot-scope="props">
+                        <div id="main"></div>
+                    </template>
+                </el-table-column>
                 <el-table-column
                 fixed
                 prop="id"
@@ -36,38 +47,32 @@
                 width="150">
                 </el-table-column>
                 <el-table-column
+                
                 prop="era"
                 label="era"
-                width="120">
+                width="100">
                 </el-table-column>
                 <el-table-column
                 prop="feature_Intelligence1"
                 label="Unit net worth"
-                width="120">
+                width="200">
                 </el-table-column>
                 <el-table-column
                 prop="feature_Intelligence2"
                 label="Cumulative net worth"
-                width="120">
+                width="200">
                 </el-table-column>
                 <el-table-column
                 prop="feature_Intelligence3"
                 label="latest scale"
-                width="300">
+                width="200">
                 </el-table-column>
                 <el-table-column
                 prop="target"
                 label="target"
-                width="120">
-                </el-table-column>
-                <el-table-column
-                fixed="right"
-                label="Option"
                 >
-                <template slot-scope="scope">
-                    <el-button @click="handleClick(scope.row)" type="text" size="small">Chart</el-button>
-                </template>
                 </el-table-column>
+                
             </el-table>
 
                 
@@ -77,7 +82,7 @@
                 :current-page.sync="currentPage"
                 :page-size="pageSize" 
                 layout="prev, pager, next, jumper"
-                :total="tableData.length">
+                :total="total">
                 </el-pagination>
                 </div>
                 </div>
@@ -90,6 +95,7 @@
 <script>
     import Header from '../../components/Header'
     import { Loading } from 'element-ui';
+    import echarts from 'echarts'
     export default{
         name: 'Home',
         components: {Header},
@@ -99,48 +105,91 @@
         return {
             tableData: [],
             value1: '',
-            chart:'',
+            charts:'',
             opinionData: [],
             fullscreenLoading: false,
             loading: true,
             currentPage: 1,
-            pageSize: 8
+            pageSize: 10,
+            total:0,
+            user: {
+            username: '',
+            userId:''
+        },
+
           
         }
       },
+      mounted() {
+        
+            this.tablePage(1);
+        
+      },
       methods: {
-
-        tablePage(){
+        handleSizeChange(val) {
+                console.log(`Each page has ${val} pieces of data`);
+                this.currentPage = 1;
+                this.pageSize = val;
+            },
+            handleCurrentChange(val) {
+                console.log(`Current page: ${val}`);
+                this.currentPage = val;
+                this.tablePage(val)
+            },
+        tablePage(currentPage){
             const _this = this
-            _this.$axios.get("/Data").then(res =>{
+            _this.$axios({
+                method:'get',
+                url:'/Data',
+                params:{
+                    pageNum: this.currentPage,
+                    pageSize: this.pageSize
+                }
+            }).then(res =>{
                 console.log(res)
-                _this.tableData = res.data.data
+                _this.tableData = res.data.data.list
+                _this.currentPage = res.data.data.pageNum
+                _this.total = res.data.data.total
                 this.loading = false
             })
         },
-        sData(){
+        sData(currentPage){
             this.loading = true;
+             setTimeout(() => {
+          this.loading = false;
+        }, 1000);
             const _this = this
-            _this.$axios.get("/Data").then(res =>{
+            _this.$axios({
+                method:'get',
+                url:'/Data',
+                params:{
+                    pageNum: this.currentPage,
+                    pageSize: this.pageSize
+                }
+            }).then(res =>{
                 console.log(res)
-                _this.tableData = res.data.data
-                this.loading = false
-            });
+                _this.tableData = res.data.data.list
+                _this.currentPage = res.data.data.pageNum
+                _this.total = res.data.data.total
+                
+            })
             
         },
-        handleSizeChange(val) {
-        console.log(`Each page has ${val} pieces of data`);
-        this.currentPage = 1;
-        this.pageSize = val;
-      },
-      handleCurrentChange(val) {
-        console.log(`Current page: ${val}`);
-        this.currentPage = val;
-      }
+        handleClick(row, column, cell, event){
+            console.log(row.target);
+            this.opinionData = row.target
+            console.log(opinionData)
+        },
+        drawLine(id){
+            console.log(row);
+
+        },
+       
     
       },
       created(){
         this.tablePage()
+        
       }
 
     }

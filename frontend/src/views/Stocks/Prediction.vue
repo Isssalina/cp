@@ -3,7 +3,7 @@
     <Header></Header>
 
                   <el-table
-                  :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+                  :data="tableData"
                   v-loading="loading"
                   style="width: 100%">
                   <el-table-column
@@ -13,22 +13,22 @@
                   <el-table-column
                     prop="era"
                     label="era"
-                    width="130">
+                    width="200">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence1"
                     label="Unit net worth"
-                    width="130">
+                    width="200">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence2"
                     label="Cumulative net worth"
-                    width="130">
+                    width="200">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence3"
                     label="latest scale"
-                    width="130">
+                    width="200">
                     </el-table-column>
                     <el-table-column
                     prop="target"
@@ -40,6 +40,11 @@
                     label="risk"
                     >
                     </el-table-column>
+                     <el-table-column
+                    prop="growth_rate"
+                    label="growth_rate"
+                    >
+                    </el-table-column>
                 </el-table>
                 <el-pagination
                 @size-change="handleSizeChange"
@@ -47,7 +52,7 @@
                 :current-page.sync="currentPage"
                 :page-size="pageSize" 
                 layout="prev, pager, next, jumper"
-                :total="tableData.length">
+                :total="total">
                 </el-pagination>
 </div>
 
@@ -64,26 +69,42 @@
             tableData: [],
             loading: true,
             currentPage: 1,
-            pageSize: 16
+            pageSize: 16,
+            total:0,
+          
             
             
                
             }
         },
+         mounted() {
+        
+            this.tableDatas(1);
+        
+      },
         created(){
             this.tableDatas()
             // this.predics()
         },
         methods:{
-            tableDatas(){
+            tableDatas(currentPage){
                 const _this = this
-                _this.$axios.get('/Data').then(res =>{
+                _this.$axios({
+                    method:'get',
+                  url:'/Data',
+                  params:{
+                      pageNum: this.currentPage,
+                      pageSize: this.pageSize
+                  }
+                }).then(res =>{
                     console.log(res)
-                    _this.tableData = res.data.data
+                    _this.tableData = res.data.data.list
+                    _this.currentPage = res.data.data.pageNum
+                    _this.total = res.data.data.total
                     this.loading = false
                 });
             },
-            handleSizeChange(val) {
+        handleSizeChange(val) {
         console.log(`Each page has ${val} pieces of data`);
         this.currentPage = 1;
         this.pageSize = val;
@@ -91,6 +112,7 @@
       handleCurrentChange(val) {
         console.log(`Current page: ${val}`);
         this.currentPage = val;
+        this.tableDatas(val)
       }
     
 

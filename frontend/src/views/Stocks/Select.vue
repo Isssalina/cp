@@ -1,6 +1,52 @@
 <template>
     <div>
     <Header></Header>
+    <div class="top-card">
+    <el-row :gutter="20" class="el-row">
+    <el-col :span="12" :offset="6">
+    <el-card shadow="never">
+     You can choose your stocks by choosing risk and growth rate.&nbsp
+    <el-button type="primary" icon="el-icon-edit" circle @click="dialogVisible = true"></el-button>
+    <el-dialog
+    title=""
+    :visible.sync="dialogVisible"
+    width="30%"
+    :before-close="handleClose">
+    <el-form ref="form" :model="Range">
+    <el-form-item label="Risk Scope">
+    <el-select v-model="Range.riskRange"
+        placeholder="Please select the scope of risk"
+        @change="userSelect($event)">
+
+        <el-option
+                    v-for="item in list"
+                    :key="item.id"
+                    :label="item.range"
+                    :value="item"
+        />
+
+    </el-select>
+  </el-form-item>
+        <el-form-item label="Growth-rate">
+            <el-select v-model="Range.grRange"
+                placeholder="Please select the range of growth-rate"
+                @change="userSelect($event)">
+                <el-option label="0% ~ 0%" value="0"></el-option>
+
+            </el-select>
+        </el-form-item>
+  </el-form>
+    <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="submitRange">Submit</el-button>
+    </span>
+    </el-dialog>
+    </el-card>
+      </el-col>
+    </el-row>
+
+
+    </div>
         <el-table
             :data="tableData"
             border
@@ -13,26 +59,31 @@
                     <el-table-column
                     prop="era"
                     label="era"
-                    width="130">
+                    width="200">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence1"
                     label="Unit net worth"
-                    width="130">
+                    width="200">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence2"
                     label="Cumulative net worth"
-                    width="130">
+                    width="200">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence3"
                     label="latest scale"
-                    width="130">
+                    width="200">
                     </el-table-column>
                     <el-table-column
                     prop="target"
                     label="target"
+                    >
+                    </el-table-column>
+                    <el-table-column
+                    prop="risk"
+                    label="risk"
                     >
                     </el-table-column>
             <el-table-column
@@ -43,6 +94,14 @@
             </template>
             </el-table-column>
         </el-table>
+         <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page.sync="currentPage"
+                :page-size="pageSize" 
+                layout="prev, pager, next, jumper"
+                :total="total">
+                </el-pagination>
         </div>
 </template>
 
@@ -59,17 +118,100 @@
             tableData: [],
             username:'',
             stockId:'',
-            prediction:''
+            prediction:'',
+            currentPage: 1,
+            pageSize: 12,
+            total:0,
+            Range:{
+              
+                riskRange:{
+                  min:'',
+                  max:'',
+                  range:''
+                }
+            },
+            grRange:'',
+            risk:{
+                min:'',
+                max:''
+            },
+            dialogVisible: false,
+            list: [
+                {
+                    id: 1,
+                    min: 0,
+                    max: 1,
+                    range: "0 ~ 1",
+
+                },
+                {
+                    id: 2,
+                    min: 1,
+                    max: 10,
+                    range: "1 ~ 10",
+
+                },
+                {
+                    id: 3,
+                    min: 10,
+                    max: 31,
+                    range: "10 ~ 31",
+
+                },
+                {
+                    id: 4,
+                    min: 403,
+                    max: 960,
+                    range: "403 ~ 960",
+
+                },
+                {
+                    id: 5,
+                    min: 2049,
+                    max: 2995,
+                    range: "2049 ~ 2995",
+
+                },
+
+
+            ]
+
 
 
         }
         },
+        mounted() {
+        
+            this.tablePage(1);
+            // this.submitRange(1);
+        
+      },
         methods: {
-        tablePage(){
+             handleSizeChange(val) {
+                console.log(`Each page has ${val} pieces of data`);
+                this.currentPage = 1;
+                this.pageSize = val;
+            },
+            handleCurrentChange(val) {
+                console.log(`Current page: ${val}`);
+                this.currentPage = val;
+                this.tablePage(val)
+            },
+        tablePage(currentPage){
             const _this = this
-            _this.$axios.get('/Data').then(res =>{
+            _this.$axios({
+                method:'get',
+                url:'/Data',
+                params:{
+                    pageNum: this.currentPage,
+                    pageSize: this.pageSize
+                }
+            }).then(res =>{
                 console.log(res)
-                _this.tableData = res.data.data
+                _this.tableData = res.data.data.list
+                _this.currentPage = res.data.data.pageNum
+                _this.total = res.data.data.total
+                this.loading = false
             })
         },
         handleClick(row) {
@@ -94,6 +236,7 @@
                 
             })
         },
+
         predic(row){
             const _this = this
             console.log(row);
@@ -119,7 +262,58 @@
             })
             
 
-        }
+        },
+        userSelect(event){
+            this.Range.riskRange.min = event.min;
+            this.Range.riskRange.max = event.max;
+            this.Range.riskRange = event.range;
+            this.risk.min = event.min;
+            this.risk.max = event.max;
+            console.log(this.risk.min)
+            const _this = this
+            _this.$axios({
+                method:'get',
+                url:'/RiskRange',
+                params:{
+                  min:this.risk.min,
+                  max:this.risk.max
+                }
+            }).then(res =>{
+                console.log(res)
+            
+            })
+         },
+
+         submitRange(currentPage){
+             const _this = this
+             console.log(this.risk.min)
+            _this.$axios({
+                method:'get',
+                url:'/Recommendation',
+                params:{
+                  min:this.risk.min,
+                  max:this.risk.max,
+                  pageNum: this.currentPage,
+                  pageSize: this.pageSize
+                }
+            }).then(res =>{
+                console.log(res)
+                _this.tableData = res.data.data.list
+                _this.currentPage = res.data.data.pageNum
+                _this.total = res.data.data.total
+                this.loading = false,
+                this.dialogVisible = false
+            })
+         },
+         
+
+        handleClose(done) {
+        this.$confirm('Confirm to close?')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
+      }
       },
 
         created(){
@@ -128,7 +322,13 @@
             this.username = this.$store.getters.getUser.username
             this.avatar = this.$store.getters.getUser.avatar
         };
-        this.tablePage()
+        this.tablePage(1)
       }
     }
 </script>
+<style>
+    .top-card {
+         margin-top: 20px;
+    }
+
+</style>

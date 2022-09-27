@@ -12,7 +12,36 @@
             <el-descriptions-item label="Lastname">{{user.lastname}}</el-descriptions-item>
             <el-descriptions-item label="E-mail">{{user.email}}</el-descriptions-item>
             <el-descriptions-item label="Password">
-            <el-button type="primary" @click="changPwd">Change Password</el-button>
+            <el-button type="primary" @click="dialogFormVisible = true">Change Password</el-button>
+            <el-dialog title="Authentication" :visible.sync="dialogFormVisible">
+              <el-form :model="user" v-show="noVcode">
+                <el-form-item label="username" :label-width="formLabelWidth" >
+                  <el-input v-model="user.name" autocomplete="off"></el-input>
+                   <el-link type="primary" @click="sendVcode">Send verification code to your email</el-link>
+                </el-form-item>
+                
+                <el-form-item label="verification code" :label-width="formLabelWidth">
+                  <el-input v-model="user.code" autocomplete="off"></el-input>
+                </el-form-item>
+              </el-form>  
+              <div slot="footer" class="dialog-footer" v-show="noVcode">
+                <el-button @click="dialogFormVisible = false">Cancel</el-button>
+                <el-button type="primary" @click="confrimVcode">Submit</el-button>
+              </div>
+
+              <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" v-show="!noVcode">
+                <el-form-item label="Please enter your new password" prop="pass">
+                  <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="Please enter your password again" prop="checkPass">
+                  <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+                </el-form-item>
+              </el-form>   
+              <div slot="footer" class="dialog-footer" v-show="!noVcode">
+                <el-button @click="dialogFormVisible = false">Cancel</el-button>
+                <el-button type="primary" @click="changePwd">Submit</el-button>
+              </div>
+            </el-dialog>
             </el-descriptions-item>
 
         </el-descriptions>
@@ -30,6 +59,25 @@
         name: 'Info',
         components: {Header},
         data() {
+           var validatePass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('Please enter password'));
+        } else {
+          if (this.ruleForm.checkPass !== '') {
+            this.$refs.ruleForm.validateField('checkPass');
+          }
+          callback();
+        }
+      };
+      var validatePass2 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('Please enter the password again'));
+        } else if (value !== this.ruleForm.pass) {
+          callback(new Error('The passwords entered twice do not match!'));
+        } else {
+          callback();
+        }
+      };
         return {
           
             username:'',
@@ -38,7 +86,24 @@
             firstname: '',
             lastname: '',
             email: '',
-            }
+            code:'',
+            password:'',
+            cPassword:'',
+            },
+             dialogFormVisible: false,
+             noVcode: true,
+              ruleForm: {
+                  pass: '',
+                  checkPass: '',
+                },
+                rules: {
+                  pass: [
+                    { validator: validatePass, trigger: 'blur' }
+                  ],
+                  checkPass: [
+                    { validator: validatePass2, trigger: 'blur' }
+                  ],
+                }
             
           };
          
@@ -67,50 +132,59 @@
               _this.user.email = res.data.data.email
             })
           },
-          changPwd(){
-           
-            this.$prompt('Please input your username', 'Authentication', {
-              confirmButtonText: 'submit',
-              cancelButtonText: 'cancel',
-
-            }).then(({ value }) => {
-           
+          sendVcode(){
             
-            const _this = this
-            
-            console.log(value)
+             const _this = this
             _this.$axios({
-              method:'post',
-              url:'/sendVCode',
-              params:{
-                username: value
-              }
+                method:'post',
+                url:'/SendVCode',
+                data:{
+                  username: this.username
+                }
             }).then(res =>{
-            console.log(res)
-            _this.$prompt('Please enter the verification code received by the email address bound to your account', 'E-mail verification', {
-            confirmButtonText: 'submit',
-            cancelButtonText: 'cancel',
-
-            }).then(({comCode})=> {
-              
-            _this.$axios.get('/confirmVCode',{
-            data:{
-            username:_this.username,
-            ccode: comCode
-            }
+                console.log(res)
+            })
+           
+            
+          },
+          confrimVcode(){
+            const _this = this
+            _this.$axios({
+                method:'get',
+                url:'/ConfirmVCode',
+                params:{
+                  username: this.username,
+                  ccode:this.user.code
+                }
             }).then(res =>{
-            console.log(res)
-            _this.$router.push('/changePwd');
+                console.log(res)
+                this.noVcode = false
+                 this.$message({
+                  message: 'Email verification is successful, please enter your new password',
+                  type: 'success'
+                });
             })
+           
+          },
+          changePwd(){
+            const _this = this
+            _this.$axios({
+                method:'post',
+                url:'/ChangePassword',
+                data:{
+                  username: this.username,
+                  password: this.ruleForm.pass
+                }
+            }).then(res =>{
+                console.log(res)
+                this.dialogFormVisible = false
+                this.$message({
+                  message: 'Password changed successfully, please log in again',
+                  type: 'success'
+                });
+                this.$router.push('/Login');
+                
             })
-              });
-            }).catch(() => {
-              this.$message({
-                type: 'info',
-                message: 'Cancel input'
-              });       
-            });
-      
            
           }
       },
