@@ -16,7 +16,7 @@
 				      v-model="value1"
 				      type="datetime"
 					  align="center"
-				      placeholder="选择日期时间">
+				      placeholder="Please select the week">
 				    </el-date-picker>
                 <el-button type="primary" icon="el-icon-check" circle @click="sData" v-loading.fullscreen.lock="fullscreenLoading"></el-button>
             </div>
