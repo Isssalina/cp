@@ -74,7 +74,15 @@ export default {
             const token = res.headers['authorization']
             _this.$store.commit('SET_TOKEN', token)
             _this.$store.commit('SET_USERINFO', res.data.data)
+            
+             this.$message({
+                    type: 'success',
+                    message: 'Login successful!'
+                    });
+           setTimeout(() => {
+                    window.location.reload()}, 500);
             _this.$router.push("/")
+                  
           })
         }
           else{

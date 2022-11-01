@@ -59,7 +59,7 @@
                     <el-table-column
                     prop="era"
                     label="era"
-                    width="200">
+                    width="150">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence1"
@@ -85,14 +85,27 @@
 					width="130"
                     prop="risk"
                     label="risk"
+                    show-overflow-tooltip
+                    >
+                    <template slot="header">
+            risk
+            <el-tooltip class="item" effect="dark" content="Since the actual risk value is too small, this risk value is the value after expanding by 10,000 times." placement="bottom">-->
+              <i class="el-icon-question"></i>
+            </el-tooltip>
+          </template>
+
+                    </el-table-column>
+                    <el-table-column
+                    prop="growth_rate"
+                    label="growth rate"
                     >
                     </el-table-column>
             <el-table-column
 			width="200"
             label="Option">
             <template slot-scope="scope">
-                <el-button @click="handleClick(scope.row)" type="text" size="small">Add</el-button>
-                <el-button @click="predic(scope.row)" type="text" size="small" >View prediction</el-button>
+                <el-button @click="handleClick(scope.row)" type="primary" size="small">Add</el-button>
+                <el-button @click="predic(scope.row)" type="success" size="small" >View prediction</el-button>
             </template>
             </el-table-column>
         </el-table>

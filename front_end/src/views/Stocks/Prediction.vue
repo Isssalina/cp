@@ -37,11 +37,19 @@
 	<el-table-column
 	prop="risk"
 	label="risk"
+  show-overflow-tooltip
 	>
+  <template slot="header">
+            risk
+            <el-tooltip class="item" effect="dark" content="Since the actual risk value is too small, this risk value is the value after expanding by 10,000 times." placement="bottom">-->
+              <i class="el-icon-question"></i>
+            </el-tooltip>
+          </template>
+
 	</el-table-column>
 	<el-table-column
 	prop="growth_rate"
-	label="growth_rate"
+	label="growth rate"
 	>
 	</el-table-column>
 	</el-table>

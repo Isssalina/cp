@@ -142,6 +142,10 @@
                 }
             }).then(res =>{
                 console.log(res)
+                this.$message({
+                    type: 'success',
+                    message: 'A verification code has been sent, please check your email.'
+                    });
             })
            
             
@@ -182,6 +186,8 @@
                   type: 'success'
                 });
                 this.$router.push('/Login');
+                setTimeout(() => {
+                    window.location.reload()}, 1000);
                 
             })
            

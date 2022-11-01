@@ -104,8 +104,15 @@
 		localStorage.setItem("token", '');
 		this.$store.commit('REMOVE_INFO')
 		this.$router.push('/Login')
-      }
+    this.$message({
+                    type: 'success',
+                    message: 'Successfully logged out!'
+                    });
+                 setTimeout(() => {
+                 window.location.reload()}, 1000);
 
+    }
+                    
     },
     created(){
         if(this.$store.getters.getUser.username){

@@ -38,7 +38,7 @@
                   <el-table-column
                     prop="era"
                     label="era"
-                    width="200">
+                    width="150">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence1"
@@ -64,8 +64,16 @@
                     <el-table-column
                     prop="risk"
                     label="risk"
-                    width="250"
+                    width="200"
+                    show-overflow-tooltip
                     >
+                    <template slot="header">
+            risk
+            <el-tooltip class="item" effect="dark" content="Since the actual risk value is too small, this risk value is the value after expanding by 10,000 times." placement="bottom">-->
+              <i class="el-icon-question"></i>
+            </el-tooltip>
+          </template>
+
                     </el-table-column>
                     <el-table-column
                     prop="growth_rate"
@@ -132,6 +140,7 @@
         },
         goAddstocks(){
             this.$router.push('/select');
+            window.location.reload()
         },
         tablePage(){
             const _this = this
@@ -187,8 +196,8 @@
             this.user.avatar = this.$store.getters.getUser.avatar
             this.showname = true
             console.log(this.showname)
-        }
-        
+        };
+       
       }
 
     }

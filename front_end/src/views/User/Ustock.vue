@@ -4,14 +4,14 @@
     :data="tableData"
     style="width: 100%">
     <el-table-column
-      label="stockId"
+      label="StockId"
       prop="stockId">
     </el-table-column>
     <el-table-column
             label="Option">
             <template slot-scope="scope">
-                <el-button @click="handleClick(scope.row)" type="text" size="small">View detial</el-button>
-                <el-button @click="deleteStock(scope.row)" type="text" size="small">Delete</el-button>
+                <el-button @click="handleClick(scope.row)" type="primary" size="small">View detial</el-button>
+                <el-button @click="deleteStock(scope.row)" type="success" size="small">Delete</el-button>
             </template>
             </el-table-column>
   </el-table>
@@ -82,9 +82,11 @@
                     type: 'success',
                     message: 'successfully deleted!'
                     });
+                    
                 })
-
-
+                    setTimeout(() => {
+                    window.location.reload()}, 1000);
+                    
         
             
         }).catch(() => {
@@ -137,6 +139,7 @@
                 _this.feature_Intelligence2 = res.data.data.feature_Intelligence2
                 _this.feature_Intelligence3 = res.data.data.feature_Intelligence3
                 _this.risk = res.data.data.risk
+                _this.growth_rate = res.data.data.growth_rate
                 this.$msgbox({
                 title: 'Stock Detail',
                 message: `id:&nbsp;&nbsp;${row.stockId}<br/>
@@ -144,7 +147,8 @@
                 Cumulative net worth:&nbsp;&nbsp;${_this.feature_Intelligence2}<br/>
                 latest scale:&nbsp;&nbsp;${_this.feature_Intelligence3}<br/>
                 target:&nbsp;&nbsp;${_this.target}<br/>
-                risk:&nbsp;&nbsp;${_this.risk}<br/>`,
+                risk:&nbsp;&nbsp;${_this.risk}<br/>
+                growth rate:&nbsp;&nbsp;${_this.growth_rate}<br/>`,
                 // h('p', null, [
                 //   h('span', null, 'prediction:'),
                 //   h('i', { style: 'color: teal' }, _this.prediction),

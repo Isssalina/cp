@@ -14,10 +14,11 @@
                 <span class="demonstration">Historical Data</span>&nbsp;
 				<el-date-picker
 				      v-model="value1"
-				      type="datetime"
+				      type="week"
 					  align="center"
+                      format="yyyy week WW"
 				      placeholder="Please select the week">
-				    </el-date-picker>
+				    </el-date-picker>&nbsp;
                 <el-button type="primary" icon="el-icon-check" circle @click="sData" v-loading.fullscreen.lock="fullscreenLoading"></el-button>
             </div>
             <div>
@@ -142,21 +143,21 @@
 					type: 'category',
 					boundaryGap: false, // 坐标轴两边不留白
 					data: timeArr,
-					name: 'date', // X轴 name
+					name: 'Date', // X轴 name
 					nameTextStyle: { // 坐标轴名称的文字样式
-						fontSize: 16,
+						fontSize: 12,
 						padding: [0, 0, 0, -10]
 					}
 				},
 				yAxis: {
-					name: 'target',
+					name: 'Target',
 					nameTextStyle: {
-						fontSize: 16,
+						fontSize: 12,
 						padding: [0, 0, 10, 0]
 					},
 					type: 'value'
 				},
-				series: [{ name: 'target', data: targetArr, type: 'line' }]
+				series: [{ name: 'Target', data: targetArr, type: 'line' }]
 			});
 				// window.addEventListener("resize", () => {
 				// 	myChart.resize();
