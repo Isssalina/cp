@@ -3,9 +3,9 @@
         <el-container>
             <el-main>
                 <div class="block">
-                    <el-carousel class="t-pics" trigger="click" height="200px">
-                    <el-carousel-item v-for="item in 3" :key="item">
-                        <h3 class="small">{{ item }}</h3>
+                    <el-carousel class="t-pics" trigger="click" height="300px">
+                    <el-carousel-item v-for="item in imgArray" :key="item">
+                        <img :src="item" class="rightImg">
                     </el-carousel-item>
                     </el-carousel>
                 </div>
@@ -91,6 +91,10 @@
             tableData: [],
             value1: '',
             charts:'',
+            imgArray:[
+                require('../../assets/11.png'),
+
+            ],
             opinionData: [],
             fullscreenLoading: false,
             loading: true,
@@ -258,6 +262,12 @@
     width: 80%;
     margin:auto;
 
+  }
+  .rightImg{
+    display: inline-block;
+    width: 100%;
+    max-width: 100%;
+    height:auto;
   }
   
 
