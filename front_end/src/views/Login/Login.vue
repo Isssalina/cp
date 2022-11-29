@@ -26,7 +26,8 @@
                   <el-button type="primary" @click="submitForm('ruleForm')">Sign in</el-button>
                   <el-button @click="goBack('ruleForm')">Go back</el-button><br/>
                   <el-link type="primary" @click="register">Click here to register</el-link>&nbsp;&nbsp; 
-                  <el-link>Forget your password?</el-link>      
+                  <el-link @click="changePwd">Forget your password?</el-link>
+                        
                 </el-form-item>
               </el-form> 
             </div>
@@ -74,14 +75,15 @@ export default {
             const token = res.headers['authorization']
             _this.$store.commit('SET_TOKEN', token)
             _this.$store.commit('SET_USERINFO', res.data.data)
+           setTimeout(() => {
+            window.location.reload(),100});
+             
+            _this.$router.push('/');
             
-             this.$message({
+            this.$message({
                     type: 'success',
                     message: 'Login successful!'
                     });
-           setTimeout(() => {
-                    window.location.reload()}, 500);
-            _this.$router.push("/")
                   
           })
         }
@@ -101,6 +103,9 @@ export default {
     },
     goBack(){
         this.$router.push('/');
+     },
+     changePwd(){
+      
      }
   }
 }

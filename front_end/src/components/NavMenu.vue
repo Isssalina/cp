@@ -1,5 +1,5 @@
 <template>
-<el-row class="tac">
+<el-row class="tac" :key="forceReload">
   <el-col :span="12">
     <h5>自定义颜色</h5>
     <el-menu
@@ -47,12 +47,19 @@
 
 <script>
   export default {
+     data() {
+        return {
+            forceReload:0
+        }
+      },
     methods: {
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
+        this.forceReload += 1;
       },
       handleClose(key, keyPath) {
         console.log(key, keyPath);
+        this.forceReload += 1;
       }
     }
   }

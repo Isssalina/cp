@@ -12,7 +12,7 @@
                 <div class="t-tab">
                 <div class="block">
                 <span class="demonstration">Historical Data</span>&nbsp;
-				<el-date-picker
+				<el-date-picker :picker-options="pickerOptions"
 				      v-model="value1"
 				      type="week"
 					  align="center"
@@ -86,6 +86,7 @@
     import * as echarts from 'echarts'
     export default{
         name: 'Home',
+        
         data() {
         return {
             tableData: [],
@@ -104,7 +105,12 @@
             user: {
 				username: '',
 				userId:'',
-			}
+			},
+            pickerOptions: {
+                disabledDate(time) {
+                return time.getTime() >Date.now() || time.getTime() < Date.now() - 86 * 24 * 3600 * 1000
+                }
+      }
         }
       },
       mounted() {

@@ -1,14 +1,45 @@
 <template>
   <div id="app">
 	<Header></Header>
-    <router-view/>
+    <router-view v-if="isRouterShow"/>
   </div>
 </template>
 <script>
 	import Header from './components/Header'
 	export default{
 	    components: {Header},
-	}
+      provide () {
+      return {
+        reload: this.reload  //把方法传递给下级组件
+      }
+    },
+    data() {
+      return {
+        isRouterShow: true, //定义一个变量控制v-if
+        user: {
+            username: '',
+            userId:''
+        },
+      }
+    },
+    methods: {
+      async reload () {  //触发显示隐藏
+        this.isRouterShow = false
+        await this.$nextTick()
+        this.isRouterShow = true
+      },
+      
+
+	},
+  created(){
+        if(this.$store.getters.getUser.username){
+            this.user.username = this.$store.getters.getUser.username
+            this.user.avatar = this.$store.getters.getUser.avatar
+            this.showname = true
+        };
+  }
+  
+  }
 </script>
 <style>
 #app {

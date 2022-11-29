@@ -1,6 +1,6 @@
 <template>
 <div class="preContainer">
-    <el-table
+    <el-table :key = "forceReload"
     :data="tableData"
     style="width: 100%">
     <el-table-column
@@ -30,8 +30,8 @@
             username:'',
             tableData: [],
             id:'',
-            prediction:''
-            
+            prediction:'',
+            forceReload:0
                
             }
         },
@@ -82,10 +82,11 @@
                     type: 'success',
                     message: 'successfully deleted!'
                     });
+                    this.forceReload += 1;
                     
                 })
-                    setTimeout(() => {
-                    window.location.reload()}, 1000);
+                 setTimeout(() => {
+                 window.location.reload()}, 800);
                     
         
             

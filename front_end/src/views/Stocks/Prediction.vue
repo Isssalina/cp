@@ -69,7 +69,7 @@
     
      import Header from '../../components/Header'
      export default {
-        name: 'prediction',
+        name: 'Prediction',
         components: {Header},
         data(){
             return{

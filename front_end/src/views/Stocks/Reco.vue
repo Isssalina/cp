@@ -2,24 +2,19 @@
 <div class="preContainer">
     <div class="top-card">
     <el-row :gutter="20" class="el-row">
-  <el-col :span="8">
+  <el-col :span="12">
     <el-card shadow="never">
-     Here are 20 stocks we recommend
+     The following 20 stocks are the dominant stocks recommended by<br/>the system based on the stock calculation results.
     </el-card>
   </el-col>
-  <el-col :span="8">
-    <el-card shadow="hover">
-      You can also choose stocks according to your needs.
-    </el-card>
-  </el-col>
-  <el-col :span="8" v-show="showname">
-    <el-card shadow="hover">
+  <el-col :span="12" v-show="showname">
+    <el-card shadow="never">
    Go to the Add Selected Stocks page to select your stock.&nbsp
-    <el-button type="primary" icon="el-icon-edit" circle @click="goAddstocks"></el-button>
+    <el-button type="primary" icon="el-icon-plus" circle @click="goAddstocks"></el-button>
       </el-card>
   </el-col>
   <el-col :span="8" v-show="!showname">
-    <el-card shadow="hover">
+    <el-card shadow="never">
     Please register or log in to select your stocks!
     &nbsp<el-button type="primary" icon="el-icon-s-custom" circle @click="goLogin"></el-button>
     </el-card>

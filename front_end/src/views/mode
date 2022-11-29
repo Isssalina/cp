@@ -10,7 +10,16 @@
 <script>
     import Header from '../../components/Header'
     export default{
-        name: "Home.vue",
-        components: {Header}
+
+        components: {Header},
+        created(){
+        if(this.$store.getters.getUser.username){
+            this.user.username = this.$store.getters.getUser.username
+            this.user.avatar = this.$store.getters.getUser.avatar
+            this.showname = true
+        };
+        // this.activeMenu(this.$route.path);
+    },
     }
+
 </script>

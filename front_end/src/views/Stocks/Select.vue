@@ -59,30 +59,31 @@
                     <el-table-column
                     prop="era"
                     label="era"
-                    width="150">
+                    width="100">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence1"
                     label="Unit net worth"
-                    width="200">
+                    width="150">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence2"
                     label="Cumulative net worth"
-                    width="200">
+                    width="150">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence3"
                     label="latest scale"
-                    width="200">
+                    width="150">
                     </el-table-column>
                     <el-table-column
+                    width="150"
                     prop="target"
                     label="target"
                     >
                     </el-table-column>
                     <el-table-column
-					width="130"
+					width="150"
                     prop="risk"
                     label="risk"
                     show-overflow-tooltip
@@ -96,12 +97,12 @@
 
                     </el-table-column>
                     <el-table-column
+                    width="150"
                     prop="growth_rate"
                     label="growth rate"
                     >
                     </el-table-column>
             <el-table-column
-			width="200"
             label="Option">
             <template slot-scope="scope">
                 <el-button @click="handleClick(scope.row)" type="primary" size="small">Add</el-button>
@@ -124,7 +125,7 @@
     import Header from '../../components/Header'
     import Qs from 'qs'
     export default {
-        name: 'select',
+        name: 'Select',
         components: {Header},
 
 
@@ -148,8 +149,8 @@
             },
             grRange:'',
             risk:{
-                min:'',
-                max:''
+                min:0,
+                max:1
             },
             dialogVisible: false,
             list: [
@@ -197,9 +198,9 @@
         }
         },
         mounted() {
-        
+        this.submitRange(1);
             this.tablePage(1);
-            // this.submitRange(1);
+            
 			const that = this
 			window.onresize = () => {
 			  return (() => {

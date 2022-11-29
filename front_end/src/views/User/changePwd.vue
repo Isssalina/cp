@@ -18,6 +18,7 @@
 </template>
 <script>
   export default {
+    name: 'ChangePwd',
     data() {
       var validatePass = (rule, value, callback) => {
         if (value === '') {
