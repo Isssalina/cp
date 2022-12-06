@@ -13,7 +13,7 @@
     <el-button type="primary" icon="el-icon-plus" circle @click="goAddstocks"></el-button>
       </el-card>
   </el-col>
-  <el-col :span="8" v-show="!showname">
+  <el-col :span="12" v-show="!showname">
     <el-card shadow="never">
     Please register or log in to select your stocks!
     &nbsp<el-button type="primary" icon="el-icon-s-custom" circle @click="goLogin"></el-button>
