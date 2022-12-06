@@ -64,7 +64,7 @@
                     >
                     <template slot="header">
             risk
-            <el-tooltip class="item" effect="dark" content="Since the actual risk value is too small, this risk value is the value after expanding by 10,000 times." placement="bottom">-->
+            <el-tooltip class="item" effect="dark" content="The displayed risk value is the actual risk value *10,000" placement="bottom">-->
               <i class="el-icon-question"></i>
             </el-tooltip>
           </template>
@@ -74,6 +74,12 @@
                     prop="growth_rate"
                     label="growth rate"
                     >
+                    <template slot="header">
+            growth rate
+            <el-tooltip class="item" effect="dark" content="The data of the last half year is not subject to any changes, so the growth rate is 0" placement="bottom">-->
+              <i class="el-icon-question"></i>
+            </el-tooltip>
+          </template>
                     </el-table-column>
                 </el-table>
                

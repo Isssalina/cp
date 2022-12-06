@@ -89,11 +89,14 @@
         
         data() {
         return {
+            fits: [ 'cover'],
             tableData: [],
             value1: '',
             charts:'',
             imgArray:[
-                require('../../assets/11.png'),
+                require('../../assets/b1.png'),
+                require('../../assets/b2.png'),
+                require('../../assets/b3.png'),
 
             ],
             opinionData: [],
@@ -274,6 +277,7 @@
     width: 100%;
     max-width: 100%;
     height:auto;
+    background-size: contain;
   }
   
 

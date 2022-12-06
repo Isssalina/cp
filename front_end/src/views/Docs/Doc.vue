@@ -10,10 +10,11 @@
                     <div>Participants may lose NMR staked in tournaments. Do your own research before obtaining NMR.</div>
                 </el-collapse-item>
                 <el-collapse-item title="Function Introduction" name="2">
+                    <div>The basic function of the system is divided into the following groups: account information management, manage personal profile stocks, stock prediction, and stock recommendation.</div>
                     <div>The functions of the account information management module mainly include user registration, user login, modification of personal information, etc.</div>
-                    <div>The self-selection management module is mainly to manage the user's self-selection information.</div>
-                    <div>Personalized stock recommendations. Recommend stocks based on the user's preference for risk and growth rate options.</div>
-                    <div>The system recommends stocks. According to the calculation results of the stocks, the advantageous stocks are recommended from the system.</div>
+                    <div>The self-selection management module mainly manages the user's self-selection information. Users can add stocks as self-selected stocks according to the stock ID, and can also delete the added stocks.</div>
+                    <div>The stock recommendation function is to recommend stocks according to users' preferences on risk and growth rate selection.</div>
+                    <div>The function of recommending advantageous stocks is to give the top 20 stocks with the lowest risk value and the highest growth rate according to the ratio of risk and growth rate.</div>
                 </el-collapse-item>
                 <el-collapse-item title="Data Sources" name="3">
                     <div>Our datasets are all from Numerai official website.</div>

@@ -48,13 +48,13 @@
     </div>
         <el-table
             :data="tableData"
+            v-loading="loading"
             border
-			:height="clientHeight"
             style="width: 100%">
             <el-table-column
                     prop="id"
                     label="id"
-                    width="250">
+                    width="220">
                     </el-table-column>
                     <el-table-column
                     prop="era"
@@ -69,7 +69,7 @@
                     <el-table-column
                     prop="feature_Intelligence2"
                     label="Cumulative net worth"
-                    width="150">
+                    width="200">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence3"
@@ -83,27 +83,35 @@
                     >
                     </el-table-column>
                     <el-table-column
-					width="150"
+					width="170"
                     prop="risk"
                     label="risk"
                     show-overflow-tooltip
                     >
                     <template slot="header">
             risk
-            <el-tooltip class="item" effect="dark" content="Since the actual risk value is too small, this risk value is the value after expanding by 10,000 times." placement="bottom">-->
+            <el-tooltip class="item" effect="dark" content="The displayed risk value is the actual risk value *10,000" placement="bottom">-->
               <i class="el-icon-question"></i>
             </el-tooltip>
           </template>
 
                     </el-table-column>
                     <el-table-column
-                    width="150"
+                    width="170"
                     prop="growth_rate"
                     label="growth rate"
                     >
+                    <template slot="header">
+            growth rate
+            <el-tooltip class="item" effect="dark" content="The data of the last half year is not subject to any changes, so the growth rate is 0" placement="bottom">-->
+              <i class="el-icon-question"></i>
+            </el-tooltip>
+          </template>
                     </el-table-column>
             <el-table-column
-            label="Option">
+            fixed="right"
+            label="Option"
+            width="230">
             <template slot-scope="scope">
                 <el-button @click="handleClick(scope.row)" type="primary" size="small">Add</el-button>
                 <el-button @click="predic(scope.row)" type="success" size="small" >View prediction</el-button>
