@@ -118,7 +118,8 @@
             </template>
             </el-table-column>
         </el-table>
-         <el-pagination
+        <div v-show="!getSubmit">
+         <el-pagination 
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page.sync="currentPage"
@@ -126,6 +127,17 @@
                 layout="prev, pager, next, jumper"
                 :total="total">
                 </el-pagination>
+        </div>
+        <div v-show="getSubmit">
+         <el-pagination 
+                @size-change="handleSizeChange2"
+                @current-change="handleCurrentChange2"
+                :current-page.sync="currentPage2"
+                :page-size="pageSize2" 
+                layout="prev, pager, next, jumper"
+                :total="total2">
+                </el-pagination>
+        </div>
         </div>
 </template>
 
@@ -139,6 +151,7 @@
 
         data() {
         return {
+            getSubmit: false,
             tableData: [],
             username:'',
             stockId:'',
@@ -146,6 +159,9 @@
             currentPage: 1,
             pageSize: 12,
             total:0,
+            currentPage2: 1,
+            pageSize2: 12,
+            total2:0,
 			clientHeight:document.documentElement.clientHeight-230,
             Range:{
               
@@ -206,9 +222,9 @@
         }
         },
         mounted() {
-        this.submitRange(1);
-            this.tablePage(1);
-            
+   
+        this.tablePage(1);
+        this.submitRange(1);   
 			const that = this
 			window.onresize = () => {
 			  return (() => {
@@ -226,7 +242,17 @@
             handleCurrentChange(val) {
                 console.log(`Current page: ${val}`);
                 this.currentPage = val;
-                this.tablePage(val)
+                this.tablePage(val);
+            },
+            handleSizeChange2(val) {
+                console.log(`Each page has ${val} pieces of data`);
+                this.currentPage2 = 1;
+                this.pageSize2 = val;
+            },
+            handleCurrentChange2(val) {
+                console.log(`Current page: ${val}`);
+                this.currentPage2 = val;
+                this.submitRange(val)
             },
         tablePage(currentPage){
             const _this = this
@@ -243,6 +269,7 @@
                 _this.currentPage = res.data.data.pageNum
                 _this.total = res.data.data.total
                 this.loading = false
+                this.getSubmit = false
             })
         },
         handleClick(row) {
@@ -315,7 +342,7 @@
             })
          },
 
-         submitRange(currentPage){
+         submitRange(currentPage2){
              const _this = this
              console.log(this.risk.min)
             _this.$axios({
@@ -324,16 +351,17 @@
                 params:{
                   min:this.risk.min,
                   max:this.risk.max,
-                  pageNum: this.currentPage,
-                  pageSize: this.pageSize
+                  pageNum: this.currentPage2,
+                  pageSize: this.pageSize2
                 }
             }).then(res =>{
                 console.log(res)
                 _this.tableData = res.data.data.list
-                _this.currentPage = res.data.data.pageNum
-                _this.total = res.data.data.total
+                _this.currentPage2 = res.data.data.pageNum
+                _this.total2 = res.data.data.total
                 this.loading = false,
                 this.dialogVisible = false
+                this.getSubmit = true
             })
          },
          
