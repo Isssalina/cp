@@ -29,6 +29,18 @@
               </div>
 
               <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" v-show="!noVcode">
+                <div class = "title">
+                  <span>Passwords must meet the following requirements:</span><br/>
+                </div>
+                <div class = "font">  
+                    <span>Passwords must be at least 14 characters long</span><br/>
+                    <span>Must contain 3 of the 4 following requirements:</span><br/>
+                    <span>Upper case letters</span><br/>
+                    <span>Lower case letters</span><br/>
+                    <span>Special characters(#, @, %, etc.)</span>
+                  <el-divider></el-divider>
+
+                </div>
                 <el-form-item label="Please enter your new password" prop="pass">
                   <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
                 </el-form-item>
@@ -185,12 +197,13 @@
                   message: 'Password changed successfully, please log in again',
                   type: 'success'
                 });
-                this.$router.push('/Login');
-                // setTimeout(() => {
-                //     window.location.reload()}, 1000);
-                
-            })
-           
+                localStorage.setItem("token", '');
+                this.$store.commit('REMOVE_INFO')   
+                this.$router.push('/Login')
+                setTimeout(() => {
+                        window.location.reload()},100);
+                    })
+                  
           }
       },
       
@@ -215,5 +228,13 @@
 
     text-align: center;
     line-height: 60px;
+  }
+  .title{
+    font-size:16px;
+    color:#F56C6C;
+  }
+  .font{
+    font-size: 14px;
+    color: #409EFF;
   }
 </style>

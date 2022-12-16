@@ -9,7 +9,7 @@
      
             <el-main>
               <div class="logintext">
-               <h2> Hellow, welcome back to us! </h2>
+               <h2> Hello, welcome back to us! </h2>
               </div>
                 
             <div class="input"> 

@@ -7,7 +7,7 @@
           </el-aside>
           <el-main>
             <div class="logintext">
-               <h1>Hellow, welcome to us!</h1>
+               <h1>Hello, welcome to us!</h1>
             </div>
                  
             <div class="input"> 

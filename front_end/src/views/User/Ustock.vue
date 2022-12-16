@@ -143,13 +143,13 @@
                 _this.growth_rate = res.data.data.growth_rate
                 this.$msgbox({
                 title: 'Stock Detail',
-                message: `id:&nbsp;&nbsp;${row.stockId}<br/>
-                Unit net worth:&nbsp;&nbsp;${_this.feature_Intelligence1}<br/>
-                Cumulative net worth:&nbsp;&nbsp;${_this.feature_Intelligence2}<br/>
-                latest scale:&nbsp;&nbsp;${_this.feature_Intelligence3}<br/>
-                target:&nbsp;&nbsp;${_this.target}<br/>
-                risk:&nbsp;&nbsp;${_this.risk}<br/>
-                growth rate:&nbsp;&nbsp;${_this.growth_rate}<br/>`,
+                message: `Id:&nbsp;&nbsp;${row.stockId}<br/>
+                Unit Net Worth:&nbsp;&nbsp;${_this.feature_Intelligence1}<br/>
+                Cumulative Net Worth:&nbsp;&nbsp;${_this.feature_Intelligence2}<br/>
+                Latest Scale:&nbsp;&nbsp;${_this.feature_Intelligence3}<br/>
+                Target:&nbsp;&nbsp;${_this.target}<br/>
+                Risk:&nbsp;&nbsp;${_this.risk}<br/>
+                Growth Rate:&nbsp;&nbsp;${_this.growth_rate}<br/>`,
                 // h('p', null, [
                 //   h('span', null, 'prediction:'),
                 //   h('i', { style: 'color: teal' }, _this.prediction),

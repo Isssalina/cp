@@ -30,7 +30,7 @@
                 border
 				@expand-change="expandChange"
                 style="width: 100%">
-               <el-table-column type="expand" label="echarts" width="80">
+               <el-table-column type="expand" label="Echart" width="80">
 				  <template slot-scope="props">
 					  <div style="height: 200px;width:1000px;">
 						<div style="height: 200px;width:420px" :ref="'echarts'+props.row.id"></div>
@@ -39,28 +39,28 @@
                </el-table-column>
                 <el-table-column
                 prop="id"
-                label="id">
+                label="Id">
                 </el-table-column>
                 <el-table-column
                 
                 prop="era"
-                label="era">
+                label="Era">
                 </el-table-column>
                 <el-table-column
                 prop="feature_Intelligence1"
-                label="Unit net worth">
+                label="Unit Net Worth">
                 </el-table-column>
                 <el-table-column
                 prop="feature_Intelligence2"
-                label="Cumulative net worth">
+                label="Cumulative Net Worth">
                 </el-table-column>
                 <el-table-column
                 prop="feature_Intelligence3"
-                label="latest scale">
+                label="Latest Scale">
                 </el-table-column>
                 <el-table-column
                 prop="target"
-                label="target"
+                label="Target"
                 >
                 </el-table-column>
                 
@@ -111,7 +111,7 @@
 			},
             pickerOptions: {
                 disabledDate(time) {
-                return time.getTime() >Date.now() || time.getTime() < Date.now() - 86 * 24 * 3600 * 1000
+                return time.getTime() >Date.now() || time.getTime() < Date.now() - 104 * 24 * 3600 * 1000
                 }
       }
         }

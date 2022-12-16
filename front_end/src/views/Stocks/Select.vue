@@ -53,43 +53,43 @@
             style="width: 100%">
             <el-table-column
                     prop="id"
-                    label="id"
+                    label="Id"
                     width="220">
                     </el-table-column>
                     <el-table-column
                     prop="era"
-                    label="era"
+                    label="Era"
                     width="100">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence1"
-                    label="Unit net worth"
+                    label="Unit Net Worth"
                     width="150">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence2"
-                    label="Cumulative net worth"
+                    label="Cumulative Net Worth"
                     width="200">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence3"
-                    label="latest scale"
+                    label="Latest Scale"
                     width="150">
                     </el-table-column>
                     <el-table-column
                     width="150"
                     prop="target"
-                    label="target"
+                    label="Target"
                     >
                     </el-table-column>
                     <el-table-column
 					width="170"
                     prop="risk"
-                    label="risk"
+                    label="Risk"
                     show-overflow-tooltip
                     >
                     <template slot="header">
-            risk
+            Risk
             <el-tooltip class="item" effect="dark" content="The displayed risk value is the actual risk value *10,000" placement="bottom">-->
               <i class="el-icon-question"></i>
             </el-tooltip>
@@ -99,11 +99,11 @@
                     <el-table-column
                     width="170"
                     prop="growth_rate"
-                    label="growth rate"
+                    label="Growth Rate"
                     >
                     <template slot="header">
-            growth rate
-            <el-tooltip class="item" effect="dark" content="The data of the last half year is not subject to any changes, so the growth rate is 0" placement="bottom">-->
+            Growth Rate
+            <el-tooltip class="item" effect="dark" content="The growth rate is 0 because the Numerai dataset has not changed since July." placement="bottom">-->
               <i class="el-icon-question"></i>
             </el-tooltip>
           </template>
@@ -114,7 +114,7 @@
             width="230">
             <template slot-scope="scope">
                 <el-button @click="handleClick(scope.row)" type="primary" size="small">Add</el-button>
-                <el-button @click="predic(scope.row)" type="success" size="small" >View prediction</el-button>
+                <el-button @click="predic(scope.row)" type="success" size="small" >View Prediction</el-button>
             </template>
             </el-table-column>
         </el-table>

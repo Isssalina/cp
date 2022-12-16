@@ -26,44 +26,44 @@
                   v-loading="loading"
                   style="width: 100%">
                   <el-table-column
-                    label="id"
+                    label="Id"
                     prop="id"
                     width="250">
                   </el-table-column>
                   <el-table-column
                     prop="era"
-                    label="era"
+                    label="Era"
                     width="150">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence1"
-                    label="Unit net worth"
+                    label="Unit Net Worth"
                     width="200">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence2"
-                    label="Cumulative net worth"
+                    label="Cumulative Net Worth"
                     width="200">
                     </el-table-column>
                     <el-table-column
                     prop="feature_Intelligence3"
-                    label="latest scale"
+                    label="Latest Scale"
                     width="200">
                     </el-table-column>
                     <el-table-column
                     prop="target"
-                    label="target"
+                    label="Target"
                     width="200"
                     >
                     </el-table-column>
                     <el-table-column
                     prop="risk"
-                    label="risk"
+                    label="Risk"
                     width="200"
                     show-overflow-tooltip
                     >
                     <template slot="header">
-            risk
+            Risk
             <el-tooltip class="item" effect="dark" content="The displayed risk value is the actual risk value *10,000" placement="bottom">-->
               <i class="el-icon-question"></i>
             </el-tooltip>
@@ -72,11 +72,11 @@
                     </el-table-column>
                     <el-table-column
                     prop="growth_rate"
-                    label="growth rate"
+                    label="Growth Rate"
                     >
                     <template slot="header">
-            growth rate
-            <el-tooltip class="item" effect="dark" content="The data of the last half year is not subject to any changes, so the growth rate is 0" placement="bottom">-->
+            Growth Rate
+            <el-tooltip class="item" effect="dark" content="The growth rate is 0 because the Numerai dataset has not changed since July." placement="bottom">-->
               <i class="el-icon-question"></i>
             </el-tooltip>
           </template>
