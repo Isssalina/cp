@@ -19,7 +19,14 @@
                       format="yyyy week WW"
 				      placeholder="Please select the week">
 				    </el-date-picker>&nbsp;
-                <el-button type="primary" icon="el-icon-check" circle @click="sData" v-loading.fullscreen.lock="fullscreenLoading"></el-button>
+                <el-button type="primary" icon="el-icon-check" circle @click="sData" v-loading.fullscreen.lock="fullscreenLoading"></el-button>&nbsp;
+            </div>
+            <div>
+            <span class="demonstration">Select the three Features you want to view</span>&nbsp;
+             <el-input-number size="mini" v-model="num1" controls-position="right" @change="handleNum" :min="1" :max="310"></el-input-number>&nbsp;
+             <el-input-number size="mini" v-model="num2" controls-position="right" @change="handleNum" :min="1" :max="310"></el-input-number>&nbsp;
+             <el-input-number size="mini" v-model="num3" controls-position="right" @change="handleNum" :min="1" :max="310"></el-input-number>&nbsp;
+            <el-button type="primary" icon="el-icon-check" circle @click="sFeature" v-loading.fullscreen.lock="fullscreenLoading"></el-button>
             </div>
             <div>
 
@@ -42,7 +49,6 @@
                 label="Id">
                 </el-table-column>
                 <el-table-column
-                
                 prop="era"
                 label="Era">
                 </el-table-column>
@@ -56,7 +62,7 @@
                 </el-table-column>
                 <el-table-column
                 prop="feature_Intelligence3"
-                label="Latest Scale">
+                label="Latest ScaleLatest Scale">
                 </el-table-column>
                 <el-table-column
                 prop="target"
@@ -65,7 +71,7 @@
                 </el-table-column>
                 
             </el-table>
-                
+                <div v-show="!getSubmit">
                 <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
@@ -74,6 +80,18 @@
                 layout="prev, pager, next, jumper"
                 :total="total">
                 </el-pagination>
+                </div>
+                <div v-show="getSubmit">
+                <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page.sync="currentPage"
+                :page-size="pageSize" 
+                layout="prev, pager, next, jumper"
+                :total="total">
+                </el-pagination>
+                </div>
+
                 </div>
                 </div>
             </el-main>
@@ -99,6 +117,10 @@
                 require('../../assets/b3.png'),
 
             ],
+            getSubmit:false, 
+            num1:1,
+            num2:1,
+            num3:1,
             opinionData: [],
             fullscreenLoading: false,
             loading: true,
@@ -109,6 +131,7 @@
 				username: '',
 				userId:'',
 			},
+       
             pickerOptions: {
                 disabledDate(time) {
                 return time.getTime() >Date.now() || time.getTime() < Date.now() - 104 * 24 * 3600 * 1000
@@ -225,6 +248,34 @@
             })
             
         },
+        sFeature(currentPage){
+
+            this.loading = true;
+            setTimeout(() => {
+                this.loading = false;
+                }, 2000);
+                const _this = this
+            _this.$axios({
+                method:'get',
+                url:'/Features',
+                params:{
+                    pageNum: this.currentPage,
+                    pageSize: this.pageSize,
+                    targetNum1:this.num1,
+                    targetNum2:this.num2,
+                    targetNum3:this.num3
+                }
+            }).then(res =>{
+                console.log(res)
+                _this.tableData = res.data.data.list
+                // _this.currentPage = res.data.data.pageNum
+                // _this.total = res.data.data.total
+                 this.loading = false
+            })
+
+        },
+
+
         handleClick(row, column, cell, event){
             console.log(row.target);
             this.opinionData = row.target
@@ -234,6 +285,10 @@
             console.log(row);
 
         },
+        
+      handleNum(value) {
+        console.log(value);
+      },
        
     
       },

@@ -1,5 +1,15 @@
-<template>
+<template>           
 <div class="preContainer">
+ <div class="t-tab">
+  <div class="block">
+  <br/>
+  <span class="demonstration">Select the three Features you want to view</span>&nbsp;
+  <el-input-number size="mini" v-model="num1" controls-position="right" @change="handleNum" :min="1" :max="310"></el-input-number>&nbsp;
+  <el-input-number size="mini" v-model="num2" controls-position="right" @change="handleNum" :min="1" :max="310"></el-input-number>&nbsp;
+  <el-input-number size="mini" v-model="num3" controls-position="right" @change="handleNum" :min="1" :max="310"></el-input-number>&nbsp;
+  <el-button type="primary" icon="el-icon-check" circle @click="sFeature" v-loading.fullscreen.lock="fullscreenLoading"></el-button>
+  </div>
+  </div> <br/>
 	<el-table
 	:data="tableData"
 	v-loading="loading"
@@ -82,8 +92,11 @@
             tableData: [],
             loading: true,
             currentPage: 1,
-            pageSize: 16,
+            pageSize: 17,
             total:0,
+            num1:1,
+            num2:1,
+            num3:1,
 			clientHeight:document.documentElement.clientHeight-100,
             }
         },
@@ -127,7 +140,7 @@
         console.log(`Current page: ${val}`);
         this.currentPage = val;
         this.tableDatas(val)
-      }
+      },
     
 
             // predics(){
@@ -137,6 +150,36 @@
             //         _this.predic = res.data.data
             //     })
             // }
+       sFeature(currentPage){
+
+            this.loading = true;
+            setTimeout(() => {
+                this.loading = false;
+                }, 2000);
+                const _this = this
+            _this.$axios({
+                method:'get',
+                url:'/Features',
+                params:{
+                    pageNum: this.currentPage,
+                    pageSize: this.pageSize,
+                    targetNum1:this.num1,
+                    targetNum2:this.num2,
+                    targetNum3:this.num3
+                }
+            }).then(res =>{
+                console.log(res)
+                _this.tableData = res.data.data.list
+                _this.currentPage = res.data.data.pageNum
+                _this.total = res.data.data.total
+                
+            })
+
+        },
+          handleNum(value) {
+        console.log(value);
+      },
+
         }
      }
 
@@ -159,5 +202,15 @@
   .preContainer{
 	  width: 80%;
 	  margin: auto;
+  }
+   .t-tab{
+    width: 80%;
+    margin:auto;
+
+  }
+   .block{
+    width: 70%;
+    margin:auto;
+
   }
   </style>
